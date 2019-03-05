@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require_once '../controller/conexao.php';
 Conexao::sessao();
@@ -14,8 +14,7 @@ Conexao::sessao();
 		<ul class="nav-profile">
 			<li class="profile dropdown"><a class="nav-link dropdown-toggle"
 				data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-				aria-expanded="false">
-					<span class="name"> <?php echo $_SESSION['login'];?> </span>
+				aria-expanded="false"> <span class="name"> <?php echo $_SESSION['login'];?> </span>
 			</a>
 				<div class="dropdown-menu profile-dropdown-menu"
 					aria-labelledby="dropdownMenu1">
@@ -26,14 +25,14 @@ Conexao::sessao();
 					</a> <a class="dropdown-item" href="#"> <i class="fa fa-gear icon"></i>
 						Settings
 					</a>
-					
+
 					<div class="dropdown-divider"></div>
 								<?php
-     
-                                echo "<a class='dropdown-item' href='../controller/sair.php'> <i
+
+        echo "<a class='dropdown-item' href='../controller/sair.php'> <i
                         									class='fa fa-power-off icon'></i> Logout
                         								</a>";
-                                ?>
+        ?>
                         								
 							</div></li>
 		</ul>
@@ -62,6 +61,14 @@ Conexao::sessao();
 						<li><a href="adicionar_itens.php"> Adicionar Itens </a></li>
 						<li><a href="index.php"> Editar Itens</a></li>
 					</ul></li>
+				<li><a href=""> <i class="fa fa-th-large"></i> Resultados <i
+						class="fa arrow"></i>
+				</a>
+					<ul class="sidebar-nav">
+						<li><a href="adicionar_itens.php"> Pagina de impressão </a></li>
+
+					</ul></li>
+
 			</ul>
 		</nav>
 	</div>

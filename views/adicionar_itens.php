@@ -36,25 +36,28 @@
 							<form role="form" id="form_categoria" name="form_categoria" action="adicionar_itens.php" method="POST">
 								<div class="form-group has-success">
 									<label class="control-label">Nome da Turma:</label> 
-									<input type="text" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="text" class="form-control" id="txt_turma" name="txt_turma" required="true">
 								</div>
 
 								<?php
-							//require_once "../controller/cardapio.php";
-							//require_once "../controller/anunciantes.php";
-							//$cardapio = new Cardapio();
-// 							$verif = false;
-// 							if(isset($_POST['cadastro_categoria'])){
+								require_once '../controller/Turmas.php';
+								require_once '../controller/Palestras.php';
+								require_once '../controller/MiniCurso.php';
+								require_once '../controller/Instituicao.php';
+								
+								$oTurma = new Turmas();
+ 							$verif = false;
+ 							if(isset($_POST['cadastro_turma'])){
  								
-//  								$verif =$cardapio->cadastroCategoria($_POST['cad_categoria']);
+ 							    $verif =$oTurma->add(array('curso'=>$_POST['txt_turma']));
  								
-// 							}
+ 							}
 							?>
 								<div class="form-group">
-									<button type="submit" id="cadastro_categoria" name="cadastro_categoria" class="btn btn-oval btn-primary">Salvar</button>
+									<button type="submit" id="cadastro_turma" name="cadastro_turma" class="btn btn-oval btn-primary">Salvar</button>
 								</div>
 								<?php 
-								if (false) {
+								if ($verif) {
 								    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                                                        Salvo com Sucesso !!
                                                       <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -74,24 +77,48 @@
 							<form role="form" id="form_palestras" name="form_palestras" action="adicionar_itens.php" method="POST">
 								<div class="form-group has-success">
 									<label class="control-label">Tema da Palestra</label> 
-									<input type="text" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="text" class="form-control" id="txt_tema" name="txt_tema" required="true">
 								</div>
 								<div class="form-group has-success">
 									<label class="control-label">Nome do palestrante:</label> 
-									<input type="text" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="text" class="form-control" id="txt_palestrante" name="txt_palestrante" required="true">
 								</div>
 								<div class="form-group has-success">
 									<label class="control-label">Data:</label> 
-									<input type="date" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="date" class="form-control" id="txt_data" name="txt_data" required="true">
 								</div>
 								<div class="form-group has-success">
 									<label class="control-label">Horario:</label> 
-									<input type="time" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="time" class="form-control" id="txt_horario" name="txt_horario" required="true">
 								</div>
 								<div class="form-group">
-									<button type="submit" id="cadastro_categoria" name="cadastro_categoria" class="btn btn-oval btn-primary">Salvar</button>
+									<button type="submit" id="btn_cad_palestra" name="btn_cad_palestra" class="btn btn-oval btn-primary">Salvar</button>
 								</div>
 							</form>
+							<?php 
+							$oPalestra = new Palestras();
+							$verificaPlestra = false;
+							
+							if (isset($_POST['btn_cad_palestra'])) {
+							    
+							    $verificaPlestra=$oPalestra->add(array(
+							        'nome' => $_POST['txt_tema'],
+							        'horario' => $_POST['txt_horario'],
+							        'data' => $_POST['txt_data'],
+							        'palestrante' => $_POST['txt_palestrante']
+							    ));
+							    
+							    if ($verificaPlestra) {
+							        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                                       Salvo com Sucesso !!
+                                                      <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                        <span aria-hidden='true'>&times;</span>
+                                                      </button>
+                                          </div>";
+							    }
+							}
+							?>
+							
 						</div>
 					</div>
 					
@@ -103,24 +130,45 @@
 							<form role="form" id="form_mini_curso" name="form_mini_curso" action="adicionar_itens.php" method="POST">
 								<div class="form-group has-success">
 									<label class="control-label">Tema do Mini-Curso</label> 
-									<input type="text" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="text" class="form-control" id="txt_nome_min" name="txt_nome_min" required="true">
 								</div>
 								<div class="form-group has-success">
 									<label class="control-label">Nome do palestrante:</label> 
-									<input type="text" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="text" class="form-control" id="txt_nome_palestrante_min" name="txt_nome_palestrante_min" required="true">
 								</div>
 								<div class="form-group has-success">
 									<label class="control-label">Data:</label> 
-									<input type="date" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="date" class="form-control" id="txt_data_min" name="txt_data_min" required="true">
 								</div>
 								<div class="form-group has-success">
 									<label class="control-label">Horario:</label> 
-									<input type="time" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="time" class="form-control" id="txt_horario_min" name="txt_horario_min" required="true">
 								</div>
 								<div class="form-group">
-									<button type="submit" id="cadastro_categoria" name="cadastro_categoria" class="btn btn-oval btn-primary">Salvar</button>
+									<button type="submit" id="btn_cadastro_min" name="btn_cadastro_min" class="btn btn-oval btn-primary">Salvar</button>
 								</div>
 							</form>
+							<?php
+							$oMiniCurso = new MiniCursos();
+							$verificadorMin = false;
+							if (isset($_POST['btn_cadastro_min'])) {
+							    $verificadorMin =   $oMiniCurso->add(array(
+							        'nome' => $_POST['txt_nome_min'],
+							        'data' => $_POST['txt_data_min'],
+							        'horario' => $_POST['txt_horario_min'],
+							        'palestrante' => $_POST['txt_nome_palestrante_min']
+							    ));
+							    
+							    if ($verificadorMin) {
+							        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                                       Salvo com Sucesso !!
+                                                      <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                        <span aria-hidden='true'>&times;</span>
+                                                      </button>
+                                          </div>";
+							    }
+							} 
+							?>
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -131,38 +179,38 @@
 							<form role="form" id="form_categoria" name="form_categoria" action="adicionar_itens.php" method="POST">
 								<div class="form-group has-success">
 									<label class="control-label">Nome da Instituição:</label> 
-									<input type="text" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="text" class="form-control" id="txt_nome_inst" name="txt_nome_inst" required="true">
 								</div>
 								<div class="form-group has-success">
 									<label class="control-label">Cidade:</label> 
-									<input type="text" class="form-control" id="cad_categoria" name="cad_categoria" required="true">
+									<input type="text" class="form-control" id="txt_cidade_inst" name="txt_cidade_inst" required="true">
 								</div>
 
-								<?php
-							//require_once "../controller/cardapio.php";
-							//require_once "../controller/anunciantes.php";
-							//$cardapio = new Cardapio();
-// 							$verif = false;
-// 							if(isset($_POST['cadastro_categoria'])){
- 								
-//  								$verif =$cardapio->cadastroCategoria($_POST['cad_categoria']);
- 								
-// 							}
-							?>
+							
 								<div class="form-group">
-									<button type="submit" id="cadastro_categoria" name="cadastro_categoria" class="btn btn-oval btn-primary">Salvar</button>
+									<button type="submit" id="btn_cad_inst" name="btn_cad_inst" class="btn btn-oval btn-primary">Salvar</button>
 								</div>
-								<?php 
-								if (false) {
-								    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+							</form>
+								<?php
+							$oInstituicao = new Instituicao();
+							$verificaInst = false;
+							
+							if (isset($_POST['btn_cad_inst'])) {
+							    $verificaInst =   $oInstituicao->add(array(
+							        'nome' => $_POST['txt_nome_inst'],
+							        'cidade' => $_POST['txt_cidade_inst']
+							    ));
+							}
+							
+							if ($verificaInst) {
+							    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                                                        Salvo com Sucesso !!
                                                       <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                                         <span aria-hidden='true'>&times;</span>
                                                       </button>
                                           </div>";
-								}
-								?>
-							</form>
+							}
+							?>
 						</div>
 					</div>
 				</section>

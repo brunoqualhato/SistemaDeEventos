@@ -70,11 +70,12 @@ class Palestras
      * @author brunoqualhato
      * @date 28/02/2018
      */
-    function listar($param)
+    function listar()
     {
         try {
             $conexao = Conexao::getInstance();
             $stmt = $conexao->prepare("SELECT * FROM `palestras`");
+            $stmt->execute();
             return $stmt->fetchAll();
         } catch (PDOException $e) {
             echo $e->getMessage();

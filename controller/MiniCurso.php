@@ -13,11 +13,12 @@ class MiniCursos
     {
         try {
             $conexao = Conexao::getInstance();
-            $stmt = $conexao->prepare("INSERT INTO `mini_cursos`(`nome_mini_curso`, `horario`, `palestrante`) VALUES (:nome,:horario,:palestrante)");
+            $stmt = $conexao->prepare("INSERT INTO `mini_cursos`(`nome_mini_curso`,data, `horario`, `palestrante`) VALUES (:nome,:data,:horario,:palestrante)");
             return $stmt->execute(array(
                 ':nome' => $param['nome'],
+                ':data' => $param['data'],
                 ':horario' => $param['horario'],
-                ':palestrante' => $param[':palestrante']
+                ':palestrante' => $param['palestrante']
             ));
         } catch (PDOException $e) {
             echo $e->getMessage();
